@@ -2,6 +2,7 @@ package com.tianedu.jdbc.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -33,7 +34,38 @@ public class JDBCUtils {
 //            e.printStackTrace();
         }
     }
-//   连接数据库 返回一个
-
-
+//   连接数据库 返回一个Connection
+    public static Connection getConnection(){
+        try {
+            return DriverManager.getConnection(url,user,password);
+        } catch (SQLException e) {
+//            throwables.printStackTrace();
+            //将编译异常转换成 运行异常，调用者可以捕获该异常，也可以选择默认处理该异常，比较方便
+            throw new RuntimeException(e);
+        }
+    }
+    //关闭相关的资源
+    /*
+    1.ResultSet 结果集
+    2.Statement 或者 PreparedStatement
+    3.关闭Connection
+    4.如果需要关闭资源，就传入对象，否则传入null
+     */
+    public static void  close(ResultSet set, Statement statement,Connection connection){
+        //判断是否为null
+        try {
+            if(set != null){
+                set.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null){
+                connection.close();
+            }
+        } catch (SQLException e) {
+            //将编译异常转成运行异常抛出
+            throw new RuntimeException(e);
+        }
+    }
 }
