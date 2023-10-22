@@ -75,7 +75,5 @@ public class Transaction_ {
             //关闭资源
             JDBCUtils.close(null,preparedStatement,connection);
         }
-
-
     }
 }
