@@ -29,7 +29,4 @@ public class ConQuestion {
         long end = System.currentTimeMillis();
         System.out.println(end - start);  // 耗时间
     }
-
-
-
 }
